@@ -1,12 +1,13 @@
 //import react Navigation
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-//create the navigator
-const Stack = createNativeStackNavigator();
 
+
+//firebase setup
 import { initializeApp } from 'firebase/app';
-import { getFirestone } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 
 import ShoppingLists from './components/ShoppingLists';
 
@@ -24,8 +25,10 @@ const App = () => {
   const app = initializeApp(firebaseConfig);
 
   //Initialize Cloud Firestore and get a reference to the service
-  const db = getFirestone(app);
+  const db = getFirestore(app);
 
+  //create the navigator
+  const Stack = createNativeStackNavigator();
 
   return (
     <NavigationContainer>
