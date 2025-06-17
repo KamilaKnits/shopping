@@ -11,6 +11,10 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 
 import ShoppingLists from './components/ShoppingLists';
+import Welcome from './components/Welcome';
+
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(["AsyncStorage has been extracted from"]);
 
 const App = () => {
   const firebaseConfig = {
@@ -30,14 +34,16 @@ const App = () => {
   const db = getFirestore(app);
 
 
-
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName='ShoppingLists'>
+        initialRouteName="Welcome">
+         <Stack.Screen
+          name="Welcome"
+          component={Welcome}>
+        </Stack.Screen> 
         <Stack.Screen
-          name="ShoppingLists"
-        >
+          name="ShoppingLists">
           {props => <ShoppingLists db={db} {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
