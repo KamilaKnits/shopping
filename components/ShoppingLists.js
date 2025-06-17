@@ -20,14 +20,7 @@ const ShoppingLists = ({ db }) => {
     const [item1, setItem1] = useState("");
     const [item2, setItem2] = useState("");
 
-    const fetchShoppingLists = async () => {
-    const listsDocuments = await getDocs(collection(db, "shoppinglists"));
-    let newLists = [];
-    listsDocuments.forEach(docObject => {
-        newLists.push({ id: docObject.id, ...docObject.data() })
-    });
-    setLists(newLists);
-}
+   
     const addShoppingList = async (newList) => {
         const newListRef = await addDoc(collection(db, "shoppinglists"), newList);
         if (newListRef.id) {
@@ -39,9 +32,22 @@ const ShoppingLists = ({ db }) => {
     }
 
     useEffect(() => {
-        fetchShoppingLists();
-        
-    }, [`${lists}`]);
+
+        //code to execute when component mounted or updated
+       const unsubShoppingLists = onSnapshot(collection(db, "shoppinglists"), 
+       (documentsSnapshot) => {
+            let newLists = [];
+            documentsSnapshot.forEach(doc => {
+                newLists.push({ id: doc.id, ...doc.data() })
+            });
+            setLists(newLists);
+       });
+
+       //clean up code
+       return () => {
+        if(unsubShoppingLists) unsubShoppingLists();
+       }
+    }, []);
 
     return (
         <View style={styles.container}>
@@ -147,4 +153,6 @@ const styles = StyleSheet.create({
 });
 
 export default ShoppingLists;
+
+
 
