@@ -3,7 +3,8 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-
+  //create the navigator
+  const Stack = createNativeStackNavigator();
 
 //firebase setup
 import { initializeApp } from 'firebase/app';
@@ -20,6 +21,7 @@ const App = () => {
     messagingSenderId: "212573450930",
     appId: "1:212573450930:web:95520e7049dc7cd6488fab"
   };
+  
 
   //Initialize Firebase
   const app = initializeApp(firebaseConfig);
@@ -27,8 +29,7 @@ const App = () => {
   //Initialize Cloud Firestore and get a reference to the service
   const db = getFirestore(app);
 
-  //create the navigator
-  const Stack = createNativeStackNavigator();
+
 
   return (
     <NavigationContainer>
